@@ -1,0 +1,35 @@
+# Model
+model:
+  bins_per_patch: 16
+  dim: 256
+  num_heads: 8
+  dim_head: 32
+  t_layers: 2
+  st_layers: 2
+  attn_dropout: 0.0
+  ff_dropout: 0.1
+  rot_ratio: 0.5
+  num_latents: 32          # P: number of time patches
+  num_distance_bins: 32     # K: for spatial distance tokenization
+
+# VICReg
+vicreg:
+  inv_factor: 25.0
+  var_factor: 25.0
+  cov_factor: 1.0
+  var_cutoff: 1.0
+  use_projector: true
+
+# Training
+train:
+  batch_size: 64
+  num_epochs: 100
+  lr: 1e-4
+  weight_decay: 0.01
+  warmup_ratio: 0.05
+  grad_clip: 1.0
+  seed: 42
+
+# Paths (override when running)
+output_dir: outputs
+checkpoint_dir: checkpoints

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Framework Architecture</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #0c0c0f;
+      color: #e4e4e7;
+      min-height: 100vh;
+    }
+    .page {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #71717a;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+    .diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .node {
+      width: 100%;
+      padding: 0.85rem 1.1rem;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      line-height: 1.4;
+      border: 1px solid transparent;
+    }
+    .node + .connector { margin-top: 0.35rem; }
+    .connector {
+      width: 2px;
+      height: 18px;
+      background: linear-gradient(to bottom, #3f3f46 0%, transparent 100%);
+      border-radius: 1px;
+    }
+    .connector + .node { margin-top: 0.35rem; }
+    .shape { font-size: 0.7rem; color: #52525b; margin-top: 0.25rem; }
+    .node.input {
+      background: linear-gradient(160deg, #1e1b4b 0%, #2e1065 100%);
+      border-color: #5b21b6;
+      color: #c4b5fd;
+    }
+    .node.proj {
+      background: linear-gradient(160deg, #0c4a6e 0%, #164e63 100%);
+      border-color: #0e7490;
+      color: #67e8f9;
+    }
+    .node.temp {
+      background: linear-gradient(160deg, #14532d 0%, #166534 100%);
+      border-color: #22c55e;
+      color: #86efac;
+    }
+    .node.spatial {
+      background: linear-gradient(160deg, #7c2d12 0%, #9a3412 100%);
+      border-color: #ea580c;
+      color: #fdba74;
+    }
+    .node.pool {
+      background: linear-gradient(160deg, #4c1d95 0%, #5b21b6 100%);
+      border-color: #7c3aed;
+      color: #e9d5ff;
+    }
+    .node.output {
+      background: linear-gradient(160deg, #1e3a5f 0%, #1d4ed8 100%);
+      border-color: #3b82f6;
+      color: #93c5fd;
+    }
+    .group {
+      width: 100%;
+      border: 1px dashed #3f3f46;
+      border-radius: 10px;
+      padding: 0.6rem;
+      margin: 0.35rem 0;
+    }
+    .group .shape { margin-top: 0.15rem; margin-bottom: 0.25rem; }
+    .group-label {
+      font-size: 0.65rem;
+      color: #71717a;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.4rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Framework architecture</h1>
+    <div class="diagram">
+      <div class="node input">
+        Binned population activity<br>
+        <span class="shape">[target | neighbor₁ … neighborₙ₋₁] by distance</span>
+      </div>
+      <div class="connector"></div>
+      <div class="node proj">
+        Patch linear projection<br>
+        <span class="shape">(n × P × bins_per_patch) → (n × P × D)</span>
+      </div>
+      <div class="connector"></div>
+      <div class="group">
+        <div class="group-label">× L_T layers</div>
+        <div class="node temp">
+          Temporal self-attention + FFN<br>
+          <span class="shape">Rotary position encoding · per neuron</span>
+        </div>
+      </div>
+      <div class="connector"></div>
+      <div class="group">
+        <div class="group-label">× L_ST layers</div>
+        <div class="node spatial">
+          Spatial self-attention + FFN<br>
+          <span class="shape">Distance-tokenized positional encoding</span>
+        </div>
+        <div class="connector"></div>
+        <div class="node temp">
+          Temporal self-attention + FFN<br>
+          <span class="shape">Rotary position encoding</span>
+        </div>
+      </div>
+      <div class="connector"></div>
+      <div class="node pool">
+        Mean pool over time → index 0<br>
+        <span class="shape">(n × P × D) → (n × D) → target only (D)</span>
+      </div>
+      <div class="connector"></div>
+      <div class="node output">
+        Embedding H<br>
+        <span class="shape">Training: H → Projector → Z (VICReg). Inference: H only.</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
