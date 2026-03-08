@@ -9,138 +9,251 @@
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       margin: 0;
-      padding: 2rem;
-      background: #0c0c0f;
-      color: #e4e4e7;
+      padding: 1.5rem;
+      background: #f8f7f4;
+      color: #3d3d3d;
       min-height: 100vh;
     }
     .page {
-      max-width: 560px;
+      max-width: 880px;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
     }
     h1 {
-      font-size: 1rem;
+      font-size: 0.7rem;
       font-weight: 600;
-      color: #71717a;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.02em;
+      color: #8a8a8a;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
-    .diagram {
+    .section { width: 100%; }
+    .flow-h {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .arrow { color: #999; font-size: 0.65rem; flex-shrink: 0; }
+    .box {
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.65rem;
+      font-weight: 500;
+      border: 1px solid rgba(0,0,0,0.08);
+      white-space: nowrap;
+    }
+    .target { background: #e8e6f0; border-color: #c9c4dc; color: #4a4560; }
+    .view { background: #f0ebe8; border-color: #d9d0c8; color: #4a423d; }
+    .enc { background: #e2eaf5; border-color: #b8cce8; color: #2d3d5c; }
+    .proj { background: #e8e6f0; border-color: #c9c4dc; color: #4a4560; }
+    .z { background: #e5f0e3; border-color: #bdd9b8; color: #2d4a2d; }
+    .vicreg { background: #f5ebe0; border-color: #e4d4c0; color: #5c4a35; }
+    .fork {
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 0.2rem;
     }
+    .fork-line { width: 2px; height: 14px; background: rgba(0,0,0,0.15); border-radius: 1px; }
+    .contrast-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .ring-wrap {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ring {
+      width: 80px;
+      height: 80px;
+      border: 1.5px solid rgba(0,0,0,0.2);
+      border-radius: 50%;
+      position: relative;
+      background: #fafaf8;
+    }
+    .ring-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: #5c4a35;
+    }
+    .ring-z {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #e5f0e3;
+      border: 1px solid #bdd9b8;
+      font-size: 0.5rem;
+      font-weight: 600;
+      color: #2d4a2d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .encoder-flow {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .enc-arrow { color: #999; font-size: 0.7rem; align-self: center; flex-shrink: 0; }
     .node {
-      width: 100%;
-      padding: 0.85rem 1.1rem;
-      border-radius: 10px;
+      min-width: 72px;
+      min-height: 52px;
+      padding: 0.7rem 0.9rem;
+      border-radius: 8px;
       text-align: center;
-      font-size: 0.8125rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border: 1px solid rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+    }
+    .node .sub {
+      font-size: 0.58rem;
       font-weight: 500;
-      line-height: 1.4;
-      border: 1px solid transparent;
+      color: #666;
+      line-height: 1.25;
     }
-    .node + .connector { margin-top: 0.35rem; }
-    .connector {
-      width: 2px;
-      height: 18px;
-      background: linear-gradient(to bottom, #3f3f46 0%, transparent 100%);
-      border-radius: 1px;
+    .node.input { background: #e8e6f0; border-color: #c9c4dc; color: #4a4560; }
+    .node.linear { background: #e0eef4; border-color: #b8d4e3; color: #2d5a6e; }
+    .node.temp { background: #e5f0e3; border-color: #bdd9b8; color: #2d4a2d; }
+    .node.spatial { background: #f5ebe0; border-color: #e4d4c0; color: #5c4a35; }
+    .node.pool { background: #eee5f2; border-color: #d9c8e4; color: #4a3d55; }
+    .node.out { background: #e2eaf5; border-color: #b8cce8; color: #2d3d5c; }
+    .group-h {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.45rem 0.55rem;
+      border: 1px dashed rgba(0,0,0,0.18);
+      border-radius: 8px;
+      min-height: 56px;
     }
-    .connector + .node { margin-top: 0.35rem; }
-    .shape { font-size: 0.7rem; color: #52525b; margin-top: 0.25rem; }
-    .node.input {
-      background: linear-gradient(160deg, #1e1b4b 0%, #2e1065 100%);
-      border-color: #5b21b6;
-      color: #c4b5fd;
+    .group-h .tag {
+      font-size: 0.58rem;
+      color: #888;
+      margin-right: 0.2rem;
+      align-self: center;
     }
-    .node.proj {
-      background: linear-gradient(160deg, #0c4a6e 0%, #164e63 100%);
-      border-color: #0e7490;
-      color: #67e8f9;
+    .group-h .stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
     }
-    .node.temp {
-      background: linear-gradient(160deg, #14532d 0%, #166534 100%);
-      border-color: #22c55e;
-      color: #86efac;
-    }
-    .node.spatial {
-      background: linear-gradient(160deg, #7c2d12 0%, #9a3412 100%);
-      border-color: #ea580c;
-      color: #fdba74;
-    }
-    .node.pool {
-      background: linear-gradient(160deg, #4c1d95 0%, #5b21b6 100%);
-      border-color: #7c3aed;
-      color: #e9d5ff;
-    }
-    .node.output {
-      background: linear-gradient(160deg, #1e3a5f 0%, #1d4ed8 100%);
-      border-color: #3b82f6;
-      color: #93c5fd;
-    }
-    .group {
-      width: 100%;
-      border: 1px dashed #3f3f46;
-      border-radius: 10px;
-      padding: 0.6rem;
-      margin: 0.35rem 0;
-    }
-    .group .shape { margin-top: 0.15rem; margin-bottom: 0.25rem; }
-    .group-label {
+    .group-h .stack .node {
+      min-height: 46px;
+      padding: 0.55rem 0.7rem;
       font-size: 0.65rem;
-      color: #71717a;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.4rem;
     }
   </style>
 </head>
 <body>
   <div class="page">
-    <h1>Framework architecture</h1>
-    <div class="diagram">
-      <div class="node input">
-        Binned population activity<br>
-        <span class="shape">[target | neighbor₁ … neighborₙ₋₁] by distance</span>
-      </div>
-      <div class="connector"></div>
-      <div class="node proj">
-        Patch linear projection<br>
-        <span class="shape">(n × P × bins_per_patch) → (n × P × D)</span>
-      </div>
-      <div class="connector"></div>
-      <div class="group">
-        <div class="group-label">× L_T layers</div>
-        <div class="node temp">
-          Temporal self-attention + FFN<br>
-          <span class="shape">Rotary position encoding · per neuron</span>
+    <section class="section">
+      <h1>Contrastive learning</h1>
+      <div class="contrast-wrap">
+        <div class="flow-h">
+          <div class="box target">Target<br><span style="font-size:0.55rem;color:#888">binned activity</span></div>
+          <span class="arrow">→</span>
+          <div class="fork">
+            <div class="box view">view₁</div>
+            <div class="fork-line"></div>
+            <div class="box view">view₂</div>
+          </div>
+          <span class="arrow">→</span>
+          <div class="fork">
+            <div class="box enc">Encoder</div>
+            <div class="fork-line"></div>
+            <div class="box enc">Encoder</div>
+          </div>
+          <span class="arrow">→</span>
+          <div class="fork">
+            <div class="box enc">H₁</div>
+            <div class="fork-line"></div>
+            <div class="box enc">H₂</div>
+          </div>
+          <span class="arrow">→</span>
+          <div class="fork">
+            <div class="box proj">Projector</div>
+            <div class="fork-line"></div>
+            <div class="box proj">Projector</div>
+          </div>
+          <span class="arrow">→</span>
+          <div class="ring-wrap">
+            <div class="ring">
+              <span class="ring-center">VICReg</span>
+              <div class="ring-z" style="left: 0; top: 30px;">Z₁</div>
+              <div class="ring-z" style="left: 60px; top: 30px;">Z₂</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="connector"></div>
-      <div class="group">
-        <div class="group-label">× L_ST layers</div>
-        <div class="node spatial">
-          Spatial self-attention + FFN<br>
-          <span class="shape">Distance-tokenized positional encoding</span>
+    </section>
+    <section class="section">
+      <h1>Encoder</h1>
+      <div class="encoder-flow">
+        <div class="node input">
+          Neural activity<br>
+          <span class="sub">binned & patched<br>[target | neighbors]</span>
         </div>
-        <div class="connector"></div>
-        <div class="node temp">
-          Temporal self-attention + FFN<br>
-          <span class="shape">Rotary position encoding</span>
+        <span class="enc-arrow">→</span>
+        <div class="node linear">
+          Linear<br>
+          <span class="sub">Activity tokens</span>
+        </div>
+        <span class="enc-arrow">→</span>
+        <div class="group-h">
+          <span class="tag">×M</span>
+          <div class="node temp">
+            Temporal attention<br>
+            <span class="sub">Rotary · per neuron</span>
+          </div>
+        </div>
+        <span class="enc-arrow">→</span>
+        <div class="group-h">
+          <span class="tag">×N</span>
+          <div class="stack">
+            <div class="node spatial">
+              Spatial attention<br>
+              <span class="sub">Dist. pos encoding</span>
+            </div>
+            <div class="node temp">
+              Temporal attention<br>
+              <span class="sub">Rotary</span>
+            </div>
+          </div>
+        </div>
+        <span class="enc-arrow">→</span>
+        <div class="node pool">
+          Average pooling<br>
+          <span class="sub">→ target index</span>
+        </div>
+        <span class="enc-arrow">→</span>
+        <div class="node out">
+          H<br>
+          <span class="sub">Embedding</span>
         </div>
       </div>
-      <div class="connector"></div>
-      <div class="node pool">
-        Mean pool over time → index 0<br>
-        <span class="shape">(n × P × D) → (n × D) → target only (D)</span>
-      </div>
-      <div class="connector"></div>
-      <div class="node output">
-        Embedding H<br>
-        <span class="shape">Training: H → Projector → Z (VICReg). Inference: H only.</span>
-      </div>
-    </div>
+    </section>
   </div>
 </body>
 </html>

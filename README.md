@@ -12,13 +12,11 @@ A self-supervised framework for learning **time-invariant, intrinsic representat
 - **Inference:** Encoder only (no projector). One embedding vector per (window, target neuron); optionally average over multiple windows per neuron.
 - **Downstream:** Use embeddings as features for classification (e.g. cell type, brain region), clustering, or retrieval.
 
+![Framework Architecture](docs/Framework.svg)
+
 ---
 
-## Architecture at a glance
-
-A concise visual diagram of the pipeline is available as **[`docs/architecture.html`](docs/architecture.html)** — open it in a browser to view the full flow from binned activity to embedding **H**.
-
-**Spatial ordering and position encoding**
+## Spatial ordering and position encoding
 
 - For each window we form a set of **n** neurons: **target** (index 0) + **n−1 nearest neighbors** by Euclidean distance.
 - Neighbors are ordered by **distance to the target** (closest first).
@@ -147,6 +145,24 @@ Edit `configs/default.yaml` to set:
 
 ---
 
+## Citation
+
+If you use this code or the NeurPIR framework in your work, please cite:
+
+**Wu, W., Liao, C., Deng, Z., Guo, Z., & Wang, J.** (2025). Neuron Platonic Intrinsic Representation From Dynamics Using Contrastive Learning. In *The Thirteenth International Conference on Learning Representations (ICLR 2025)*. [https://arxiv.org/abs/2502.10425](https://arxiv.org/abs/2502.10425)
+
+```bibtex
+@inproceedings{wu2025neurpir,
+  title     = {Neuron Platonic Intrinsic Representation From Dynamics Using Contrastive Learning},
+  author    = {Wu, Wei and Liao, Can and Deng, Zizhen and Guo, Zhengrui and Wang, Jinzhuo},
+  booktitle = {The Thirteenth International Conference on Learning Representations (ICLR)},
+  year      = {2025},
+  url       = {https://arxiv.org/abs/2502.10425}
+}
+```
+
+---
+
 ## License
 
-Use and modify as needed for your research. If you use this code in a paper, please cite the repository.
+Use and modify as needed for your research. If you use this code in a paper, please cite the repository and the paper above.

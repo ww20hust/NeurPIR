@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <style>
+      .text-title { font-family: 'Segoe UI', sans-serif; font-size: 12px; font-weight: 600; fill: #8a8a8a; text-transform: uppercase; letter-spacing: 0.04em; }
+      .text-box { font-family: 'Segoe UI', sans-serif; font-size: 11px; font-weight: 600; }
+      .text-sub { font-size: 9px; font-weight: 500; fill: #666; }
+      .arrow { fill: #999; font-size: 14px; }
+      .line { stroke: rgba(0,0,0,0.15); stroke-width: 2; fill: none; }
+      .dashed-box { stroke: rgba(0,0,0,0.18); stroke-width: 1; fill: none; stroke-dasharray: 4; }
+      
+      /* Colors */
+      .bg-target { fill: #e8e6f0; stroke: #c9c4dc; } .c-target { fill: #4a4560; }
+      .bg-view { fill: #f0ebe8; stroke: #d9d0c8; } .c-view { fill: #4a423d; }
+      .bg-enc { fill: #e2eaf5; stroke: #b8cce8; } .c-enc { fill: #2d3d5c; }
+      .bg-temp { fill: #e5f0e3; stroke: #bdd9b8; } .c-temp { fill: #2d4a2d; }
+      .bg-linear { fill: #e0eef4; stroke: #b8d4e3; } .c-linear { fill: #2d5a6e; }
+      .bg-spatial { fill: #f5ebe0; stroke: #e4d4c0; } .c-spatial { fill: #5c4a35; }
+      .bg-pool { fill: #eee5f2; stroke: #d9c8e4; } .c-pool { fill: #4a3d55; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#f8f7f4" />
+
+  <text x="40" y="40" class="text-title">Contrastive learning</text>
+  
+  <g transform="translate(40, 60)">
+    <rect x="0" y="35" width="90" height="40" rx="6" class="bg-target" />
+    <text x="45" y="52" text-anchor="middle" class="text-box c-target">Target</text>
+    <text x="45" y="65" text-anchor="middle" class="text-sub">binned activity</text>
+    
+    <text x="100" y="60" class="arrow">→</text>
+
+    <rect x="125" y="10" width="60" height="30" rx="6" class="bg-view" />
+    <text x="155" y="30" text-anchor="middle" class="text-box c-view">view₁</text>
+    <line x1="155" y1="45" x2="155" y2="65" class="line" />
+    <rect x="125" y="70" width="60" height="30" rx="6" class="bg-view" />
+    <text x="155" y="90" text-anchor="middle" class="text-box c-view">view₂</text>
+
+    <text x="195" y="60" class="arrow">→</text>
+
+    <rect x="220" y="10" width="70" height="30" rx="6" class="bg-enc" />
+    <text x="255" y="30" text-anchor="middle" class="text-box c-enc">Encoder</text>
+    <line x1="255" y1="45" x2="255" y2="65" class="line" />
+    <rect x="220" y="70" width="70" height="30" rx="6" class="bg-enc" />
+    <text x="255" y="90" text-anchor="middle" class="text-box c-enc">Encoder</text>
+
+    <text x="300" y="60" class="arrow">→</text>
+
+    <rect x="325" y="10" width="40" height="30" rx="6" class="bg-enc" />
+    <text x="345" y="30" text-anchor="middle" class="text-box c-enc">H₁</text>
+    <line x1="345" y1="45" x2="345" y2="65" class="line" />
+    <rect x="325" y="70" width="40" height="30" rx="6" class="bg-enc" />
+    <text x="345" y="90" text-anchor="middle" class="text-box c-enc">H₂</text>
+
+    <text x="375" y="60" class="arrow">→</text>
+
+    <rect x="400" y="10" width="75" height="30" rx="6" class="bg-target" />
+    <text x="437" y="30" text-anchor="middle" class="text-box c-target">Projector</text>
+    <line x1="437" y1="45" x2="437" y2="65" class="line" />
+    <rect x="400" y="70" width="75" height="30" rx="6" class="bg-target" />
+    <text x="437" y="90" text-anchor="middle" class="text-box c-target">Projector</text>
+
+    <text x="485" y="60" class="arrow">→</text>
+
+    <circle cx="560" cy="55" r="45" fill="#fafaf8" stroke="rgba(0,0,0,0.2)" stroke-width="1.5" />
+    <text x="560" y="58" text-anchor="middle" class="text-box" style="fill:#5c4a35; font-size:10px;">VICReg</text>
+    <circle cx="525" cy="55" r="12" class="bg-temp" />
+    <text x="525" y="59" text-anchor="middle" class="text-box c-temp" style="font-size:8px;">Z₁</text>
+    <circle cx="595" cy="55" r="12" class="bg-temp" />
+    <text x="595" y="59" text-anchor="middle" class="text-box c-temp" style="font-size:8px;">Z₂</text>
+  </g>
+
+  <text x="40" y="240" class="text-title">Encoder</text>
+  
+  <g transform="translate(40, 270)">
+    <rect x="0" y="20" width="110" height="60" rx="8" class="bg-target" />
+    <text x="55" y="42" text-anchor="middle" class="text-box c-target">Neural activity</text>
+    <text x="55" y="56" text-anchor="middle" class="text-sub">binned &amp; patched</text>
+    <text x="55" y="68" text-anchor="middle" class="text-sub">[target | neighbors]</text>
+
+    <text x="120" y="55" class="arrow">→</text>
+
+    <rect x="145" y="20" width="90" height="60" rx="8" class="bg-linear" />
+    <text x="190" y="45" text-anchor="middle" class="text-box c-linear">Linear</text>
+    <text x="190" y="60" text-anchor="middle" class="text-sub">Activity tokens</text>
+
+    <text x="245" y="55" class="arrow">→</text>
+
+    <rect x="270" y="10" width="120" height="80" rx="8" class="dashed-box" />
+    <text x="278" y="55" class="text-sub">×M</text>
+    <rect x="295" y="25" width="85" height="50" rx="8" class="bg-temp" />
+    <text x="337" y="45" text-anchor="middle" class="text-box c-temp">Temporal att.</text>
+    <text x="337" y="58" text-anchor="middle" class="text-sub">Rotary · per neuron</text>
+
+    <text x="400" y="55" class="arrow">→</text>
+
+    <rect x="425" y="5" width="120" height="110" rx="8" class="dashed-box" />
+    <text x="433" y="60" class="text-sub">×N</text>
+    <g transform="translate(450, 15)">
+      <rect x="0" y="0" width="85" height="40" rx="6" class="bg-spatial" />
+      <text x="42" y="18" text-anchor="middle" class="text-box c-spatial">Spatial att.</text>
+      <text x="42" y="30" text-anchor="middle" class="text-sub">Dist. pos encoding</text>
+      
+      <rect x="0" y="50" width="85" height="40" rx="6" class="bg-temp" />
+      <text x="42" y="68" text-anchor="middle" class="text-box c-temp">Temporal att.</text>
+      <text x="42" y="80" text-anchor="middle" class="text-sub">Rotary</text>
+    </g>
+
+    <text x="555" y="55" class="arrow">→</text>
+
+    <rect x="580" y="20" width="100" height="60" rx="8" class="bg-pool" />
+    <text x="630" y="45" text-anchor="middle" class="text-box c-pool">Average pooling</text>
+    <text x="630" y="60" text-anchor="middle" class="text-sub">→ target index</text>
+
+    <text x="690" y="55" class="arrow">→</text>
+
+    <rect x="715" y="20" width="70" height="60" rx="8" class="bg-enc" />
+    <text x="750" y="45" text-anchor="middle" class="text-box c-enc">H</text>
+    <text x="750" y="60" text-anchor="middle" class="text-sub">Embedding</text>
+  </g>
+</svg>
